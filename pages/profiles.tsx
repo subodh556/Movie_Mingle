@@ -3,6 +3,12 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
+const images = [
+  '/images/default-blue.png',
+  '/images/default-red.png',
+  '/images/default-slate.png',
+  '/images/default-green.png'
+]
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
   
@@ -22,6 +28,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const Profiles=()=>{
   const router = useRouter();
+  const imgSrc = images[Math.floor(Math.random() * 4)];
   const { data: user } = useCurrentUser();
     return(
         <div className="flex items-center h-full justify-center">

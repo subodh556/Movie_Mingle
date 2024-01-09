@@ -24,7 +24,7 @@ const Auth = () => {
             email,
             password,
             
-            callbackUrl: '/profiles'
+            callbackUrl: '/'
           });
     
           

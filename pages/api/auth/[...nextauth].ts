@@ -4,14 +4,14 @@ import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare } from 'bcrypt';
-import prismadb from '@/lib/prismadb';
+import prisma from '@/lib/prismadb';
 import CredentialsProvider from "next-auth/providers/credentials"
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prismadb),
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
-      id: 'credentials',
+     
       name: 'Credentials',
       credentials: {
         email: {
@@ -28,7 +28,7 @@ export const authOptions: AuthOptions = {
           throw new Error('Email and password required');
         }
 
-        const user = await prismadb.user.findUnique({ where: {
+        const user = await prisma.user.findUnique({ where: {
           email: credentials.email
         }});
 

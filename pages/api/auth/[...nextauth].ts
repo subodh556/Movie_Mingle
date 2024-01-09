@@ -5,22 +5,23 @@ import Credentials from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare } from 'bcrypt';
 import prisma from '@/lib/prismadb';
+import bcrypt from "bcrypt"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
-     
+      id:'credentials',
       name: 'credentials',
       credentials: {
         email: {
-          label: 'Email',
+          label: 'email',
           type: 'text',
         },
         password: {
-          label: 'Password',
-          type: 'passord'
+          label: 'password',
+          type: 'password'
         }
       },
       async authorize(credentials) {
@@ -32,11 +33,11 @@ export const authOptions: AuthOptions = {
           email: credentials.email
         }});
 
-        if (!user || !user.hashedPassword) {
+        if (!user || !user?.hashedPassword) {
           throw new Error('Email does not exist');
         }
 
-        const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
+        const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
 
         if (!isCorrectPassword) {
           throw new Error('Incorrect password');
@@ -48,7 +49,7 @@ export const authOptions: AuthOptions = {
   ],
   debug: process.env.NODE_ENV === 'development',
   
-  session: { strategy: 'jwt' },
+  session: { strategy: 'jwt', },
   jwt: {
     secret: process.env.NEXTAUTH_JWT_SECRET,
   },

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { without } from "lodash";
 
-import prismadb from '@/lib/prismadb';
+import prisma from '@/lib/prismadb';
 import serverAuth from "@/lib/serverAuth";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const { movieId } = req.body;
   
-      const existingMovie = await prismadb.movie.findUnique({
+      const existingMovie = await prisma.movie.findUnique({
         where: {
           id: movieId,
         }
@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         throw new Error('Invalid ID');
       }
   
-      const user = await prismadb.user.update({
+      const user = await prisma.user.update({
         where: {
           email: currentUser.email || '',
         },
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const { movieId } = req.body;
 
-      const existingMovie = await prismadb.movie.findUnique({
+      const existingMovie = await prisma.movie.findUnique({
         where: {
           id: movieId,
         }
@@ -52,7 +52,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const updatedFavoriteIds = without(currentUser.favoriteIds, movieId);
 
-      const updatedUser = await prismadb.user.update({
+      const updatedUser = await prisma.user.update({
         where: {
           email: currentUser.email || '',
         },

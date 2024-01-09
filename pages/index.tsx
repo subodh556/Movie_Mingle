@@ -32,7 +32,7 @@ export default function Home() {
   const {isOpen, closeModal} = useInfoModal();
   return (
     <>
-     <InfoModal visible={isOpen} onClose={()=>{closeModal}}/>
+     <InfoModal visible={isOpen} onClose={closeModal}/>
      <Navbar/>
      <Billboard/>
      <div className="pb-40">

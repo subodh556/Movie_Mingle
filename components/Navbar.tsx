@@ -33,14 +33,14 @@ const Navbar = () => {
   const toggleAccountMenu = useCallback(()=>{
     setshowAccountMenu((current)=>!current);
   },[]);
-
+  
   return (
     <nav className="w-full fixed z-40">
         <div className="px-4 md:px-16 py-4 flex flex-row items-center transition duration-500 bg-zinc-900 bg-opacity-90">
         <img src="/images/logo1.png" className="h-6 w-100 lg:h-10 w-35 " alt="Logo" />
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
           <NavbarItem label="Home" active  />
-          <NavbarItem label="New & Popular"  />
+          <NavbarItem label="New & Popular"   />
           <NavbarItem label="My List" />
         </div>
         <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">

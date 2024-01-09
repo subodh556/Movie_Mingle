@@ -20,10 +20,10 @@ const Auth = () => {
     
     const login = useCallback(async () => {
         try {
+          
           await signIn('credentials', {
             email,
             password,
-            
             callbackUrl: '/'
           });
     
